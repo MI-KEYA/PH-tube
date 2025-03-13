@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PH Tube</title>
+    <!-- daisy ui cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 <body>
-    
+    <header>
+        <nav class="w-11/12 mx-auto flex items-center justify-between border-b-2
+         py-5 border-[#17171720]">
+            <div class="logo">
+                <img class="w-[120px]" src="assets/Logo.png" alt="">
+            </div>
+            <div class="sort">
+                <button class="btn">Sort By View</button>
+            </div>
+            <div class="blogs">
+                <button class="btn text-white bg-[#FF1F3D] ">Blogs</button>
+            </div>
+        </nav>
+    </header>
+    <nav id="category-container" class="flex py-5 justify-center items-center gap-5">
+        <div>
+            <button onclick="loadVideos()" class="btn btn-sm  text-white bg-[#FF1F3D] ">All</button>
+        </div>
+    </nav>
+
+    <section id="video-container" class="w-11/12 mx-auto grid grid-cols-4 gap-5">
+       
+    </section>
+
+    <script src="script/index.js"></script>
 </body>
 </html>
