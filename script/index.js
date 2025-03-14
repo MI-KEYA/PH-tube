@@ -1,3 +1,11 @@
+function removeActiveClass(){
+    const activeButtons = document.getElementsByClassName("active");
+    console.log(activeButtons);
+
+    for(let btn of activeButtons){
+        btn.classList.remove("active");
+    }
+}
 
 function loadCategories() {
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -17,6 +25,7 @@ function loadVideos() {
 // category_id
 // : 
 // "1001"}
+
 function displayCategories(categories) {
     const categoryContainer = document.getElementById("category-container");
 
@@ -24,15 +33,46 @@ function displayCategories(categories) {
 
         const categoryDiv = document.createElement("div");
         categoryDiv.innerHTML = `
-        <button class="btn btn-sm hover:text-white hover:bg-[#FF1F3D] ">${cat.category}</button>
+        <button 
+            id="btn-${cat.category_id}" onclick="loadCategoryVideos(${cat.category_id})" 
+            class="btn btn-sm hover:text-white hover:bg-[#FF1F3D] ">${cat.category}</button>
         `;
         categoryContainer.append(categoryDiv)
 
     }
 }
+
+const loadCategoryVideos = (id) => {
+    const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`
+    console.log(url);
+
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) =>{
+
+            removeActiveClass();
+            const clickedButton = document.getElementById(`btn-${id}`)
+            clickedButton.classList.add("active");
+            displayVideos(data.category)
+        })
+}
 const displayVideos = (videos) => {
     const videoContainer = document.getElementById("video-container");
 
+    videoContainer.innerHTML = "";
+
+    if (videos.length == 0) {
+        videoContainer.innerHTML = `
+        <div 
+           class="col-span-full flex flex-col justify-center items-center
+            py-20 "
+        >
+            <img class="w-[120px]" src="assets/Icon.png" alt="">
+            <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here.</h2>
+        </div>
+        `;
+        return;
+    }
     videos.forEach(video => {
         // console.log(video)
 
